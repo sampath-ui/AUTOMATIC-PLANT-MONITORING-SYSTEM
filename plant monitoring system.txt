@@ -1,0 +1,55 @@
+int soil=A0;
+int ldr=A1;
+int temp=A3;
+int motor=6;
+int soilv,ldrr,tempp;
+
+
+void setup()
+{
+  pinMode(soil,INPUT);
+  pinMode(ldr,INPUT);
+  pinMode(temp,INPUT);
+  pinMode(motor,OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  //soil moisture
+  soilv=analogRead(soil);
+  soilv=map(soilv,0, 876, 0, 100);
+  Serial.print("soil =");
+  Serial.println(soilv);
+  delay(1000);
+  
+  //light measurment
+  ldrr=analogRead(ldr);
+  ldrr=map(ldrr, 0, 679, 0, 100);
+  Serial.print("ldr = ");
+  Serial.println(ldrr);
+  delay(1000);
+  
+  
+  //temperature
+  tempp=analogRead(temp);
+  tempp=map(tempp, 0, 872, -40,125);
+  Serial.print("tempp =");
+  Serial.println(tempp);
+  delay(1000);
+  
+  
+  
+  
+  if (soilv < 25)
+  {
+    digitalWrite(motor, HIGH);
+    Serial.println("Motor ON"); 
+  }
+  else
+  {
+    digitalWrite(motor, LOW);
+    Serial.println("Motor OFF");
+  }
+
+}
